@@ -31,7 +31,7 @@ def finde_geburtsdatum_in_pi(geburtsdatum, geburtszeit=None, max_stellen=1_000_0
         suchstring += geburtszeit.replace(".", "")
     
     # Pi mit den gewünschten Nachkommastellen berechnen
-    mp.dps = max_stellen + 100  # etwas mehr für Genauigkeit
+    mp.dps = int(max_stellen) + 100  # etwas mehr für Genauigkeit
     pi_str = str(mp.pi)
     
     # Nur die Nachkommastellen (nach dem Punkt)
@@ -122,10 +122,16 @@ if __name__ == "__main__":
     print("=" * 70)
     
     # Beispiel 1: Nur Datum
-    print("\n📅 Beispiel 1: Nur Geburtsdatum. Gib dein Geburtsdatum im Format DD.MM.YYY ein:")
+    print("\n📅 Beispiel 1: Nur Geburtsdatum. ")
     print("\n")
-    message = input("Gib dein Geburtsdatum im Format DD.MM.YYY ein:")
-    ergebnis1 = finde_geburtsdatum_in_pi(message)
+    message = input("Gib dein Geburtsdatum im Format DD.MM.YYY ein: ")
+    flag = input("\nMöchtest du die Pi-Nachkommastellen statt 1mio anpassen? y/n: ")
+    if flag=="y":
+        maxstellen=input("\nGebe nun die gewünschte Anzahl an Stellen an: ")
+        ergebnis1 = finde_geburtsdatum_in_pi(message,max_stellen=maxstellen)
+    else:
+        ergebnis1 = finde_geburtsdatum_in_pi(message)
+    
     
     if ergebnis1.get("gefunden"):
         print(f"\n✅ Gefunden! Deine Zahlenfolge: {ergebnis1['suchstring']}")
